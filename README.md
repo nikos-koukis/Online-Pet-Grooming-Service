@@ -14,6 +14,6 @@
 | Stack       |  |  |  |
 | ----------- | ----------- | ----------- | ----------- |
 | FrontEnd      | <img src="./public/assets/mdImages/nextjs.png" width="300" height="150">       | <img src="./public/assets/mdImages/tailwind.jpg" width="300" height="150">       | <img src="./public/assets/mdImages/mongodb.jpg" width="300" height="150">       |
-|    | <p align="center">Nextjs</p> | <p align="center">Tailwind</p> | <p align="center">MongoDB</p> |
+|    | <p align="center">NextJS</p> | <p align="center">Tailwind CSS</p> | <p align="center">MongoDB</p> |
 ---
 Made with :heart: and JavaScript 
