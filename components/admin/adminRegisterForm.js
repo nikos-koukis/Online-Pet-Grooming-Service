@@ -1,6 +1,58 @@
 import { PencilAltIcon } from '@heroicons/react/solid'
+import { useRef, useContext } from 'react';
+import NotificationContext from '../../contextStore/adminRegisterNotifCtx';
+import AdminRegisterNotif from '../ui/adminContext/adminRegiNotific';
 
 export default function AdminRegisterForm() {
+
+    const fullNameInputRef = useRef();
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
+    const confirmPasswordInputRef = useRef();
+
+    const notificationCtx = useContext(NotificationContext);
+    const activeNotification = notificationCtx.notification;
+
+    async function adminRegisterSubmitHandler(event) {
+        event.preventDefault();
+        const enteredFullName = fullNameInputRef.current.value;
+        const enteredEmail = emailInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
+
+        notificationCtx.showNotification({
+            message: 'Registering for admin in process.',
+            status: 'pending',
+        });
+
+        fetch('/api/auth/admin/signup', {
+            method: 'POST',
+            body: JSON.stringify({ fullname: enteredFullName, email: enteredEmail, password: enteredPassword }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                return response.json().then((data) => {
+                    throw new Error(data.message || 'Something went wrong!');
+                });
+            })
+            .then((data) => {
+                notificationCtx.showNotification({
+                    message: 'Successfully registered for newsletter!',
+                    status: 'success',
+                });
+            })
+            .catch((error) => {
+                notificationCtx.showNotification({
+                    message: error.message || 'Something went wrong!',
+                    status: 'error',
+                });
+            });
+    }
 
     return (
         <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -10,7 +62,7 @@ export default function AdminRegisterForm() {
                         Sign up to your account
                     </h2>
                 </div>
-                <form className="mt-8 space-y-6" action="#" method="POST">
+                <form className="mt-8 space-y-6" onSubmit={adminRegisterSubmitHandler}>
                     <input type="hidden" name="remember" defaultValue="true" />
                     <div className="space-y-8">
                         <div>
@@ -21,6 +73,7 @@ export default function AdminRegisterForm() {
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Full Name"
+                                ref={fullNameInputRef}
                             />
                         </div>
                         <div>
@@ -32,6 +85,7 @@ export default function AdminRegisterForm() {
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Email address"
+                                ref={emailInputRef}
                             />
                         </div>
                         <div>
@@ -42,6 +96,7 @@ export default function AdminRegisterForm() {
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Password"
+                                ref={passwordInputRef}
                             />
                         </div>
                         <div>
@@ -52,6 +107,7 @@ export default function AdminRegisterForm() {
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Confirm Password"
+                                ref={confirmPasswordInputRef}
                             />
                         </div>
                     </div>
@@ -67,6 +123,12 @@ export default function AdminRegisterForm() {
                     </div>
                 </form>
             </div>
+            {activeNotification && (
+                <AdminRegisterNotif
+                    message={activeNotification.message}
+                    status={activeNotification.status}
+                />
+            )}
         </div>
     );
 }

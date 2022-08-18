@@ -1,5 +1,4 @@
 import { LoginIcon } from '@heroicons/react/solid'
-
 export default function AdminLoginForm() {
 
     return (
