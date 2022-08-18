@@ -1,5 +1,5 @@
-import { hashPassword } from '../../../../lib/auth'
-import { connectToDatabase } from '../../../../lib/db'
+import { hashPassword } from '../../../lib/auth'
+import { connectToDatabase } from '../../../lib/db'
 
 
 async function handler(req, res) {
@@ -9,7 +9,7 @@ async function handler(req, res) {
 
     const data = req.body;
 
-    const { fullname, email, password, verify=false } = data;
+    const { fullname, email, password, verify = true, created_at = new Date().toLocaleString({ timeZone: "Europe/Athens" }), verified_at = null } = data;
 
     if (!fullname || !email || !email.includes('@') || !password || password.trim().length < 7) { // API Validation 
         res.status(422).json({
@@ -37,7 +37,9 @@ async function handler(req, res) {
         fullname: fullname,
         email: email,
         password: hashedPassword,
-        verify: verify
+        verify: verify,
+        created_at: created_at,
+        verified_at: verified_at
     });
 
     res.status(201).json({ message: 'Created user!' });

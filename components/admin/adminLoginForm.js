@@ -1,5 +1,48 @@
 import { LoginIcon } from '@heroicons/react/solid'
+import { signIn } from 'next-auth/react'
+import { useRef, useContext } from 'react';
+import AdminRegisterNotificationContext from '../../contextStore/adminRegisterNotifCtx';
+import AdminRegisterNotif from '../ui/adminContext/adminRegiNotific';
+
 export default function AdminLoginForm() {
+
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
+
+    const notificationCtx = useContext(AdminRegisterNotificationContext);
+    const activeNotification = notificationCtx.notification;
+
+    async function adminLoginSubmitHandler(event) {
+        event.preventDefault();
+        const enteredEmail = emailInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
+        const result = await signIn('credentials', {
+            redirect: false,
+            email: enteredEmail,
+            password: enteredPassword,
+        });
+
+        notificationCtx.showNotification({
+            message: 'Login for admin in process...',
+            status: 'pending',
+        });
+
+        if (result.error) {
+            setTimeout(function () {
+                notificationCtx.showNotification({
+                    message: 'Invalid Credentials!',
+                    status: 'error',
+                });
+            }, 1000);
+        } else {
+            setTimeout(function () {
+                notificationCtx.showNotification({
+                    message: 'Success Login!',
+                    status: 'success',
+                });
+            }, 1000);
+         }
+    }
 
     return (
         <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -9,7 +52,7 @@ export default function AdminLoginForm() {
                         Sign in to your account
                     </h2>
                 </div>
-                <form className="mt-8 space-y-6" action="#" method="POST">
+                <form className="mt-8 space-y-6" onSubmit={adminLoginSubmitHandler}>
                     <input type="hidden" name="remember" defaultValue="true" />
                     <div className="space-y-8">
                         <div>
@@ -21,6 +64,7 @@ export default function AdminLoginForm() {
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Email address"
+                                ref={emailInputRef}
                             />
                         </div>
                         <div>
@@ -31,6 +75,7 @@ export default function AdminLoginForm() {
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Password"
+                                ref={passwordInputRef}
                             />
                         </div>
                     </div>
@@ -67,6 +112,12 @@ export default function AdminLoginForm() {
                     </div>
                 </form>
             </div>
+            {activeNotification && (
+                <AdminRegisterNotif
+                    message={activeNotification.message}
+                    status={activeNotification.status}
+                />
+            )}
         </div>
     );
 }

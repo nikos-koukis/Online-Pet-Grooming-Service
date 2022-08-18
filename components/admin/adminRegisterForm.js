@@ -26,7 +26,7 @@ export default function AdminRegisterForm() {
                 status: 'pending',
             });
 
-            fetch('/api/auth/admin/signup', {
+            fetch('/api/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify({ fullname: enteredFullName, email: enteredEmail, password: enteredPassword }),
                 headers: {
@@ -61,6 +61,9 @@ export default function AdminRegisterForm() {
                 status: 'error',
             });
         }
+
+
+
     }
 
     return (
