@@ -9,6 +9,8 @@
 
 -   WIP: Work In Progress
 
+-   In Dev Progress: Admin Dashboard
+
 ## Tech Stack
 
 | Stack       |  |  |  |
