@@ -1,6 +1,7 @@
 import { LoginIcon } from '@heroicons/react/solid'
 import { signIn } from 'next-auth/react'
 import { useRef, useContext } from 'react';
+import { useRouter } from 'next/router'
 import AdminRegisterNotificationContext from '../../contextStore/adminRegisterNotifCtx';
 import AdminRegisterNotif from '../ui/adminContext/adminRegiNotific';
 
@@ -11,6 +12,8 @@ export default function AdminLoginForm() {
 
     const notificationCtx = useContext(AdminRegisterNotificationContext);
     const activeNotification = notificationCtx.notification;
+
+    const router = useRouter();
 
     async function adminLoginSubmitHandler(event) {
         event.preventDefault();
@@ -27,6 +30,10 @@ export default function AdminLoginForm() {
             status: 'pending',
         });
 
+        if (!result.error) {
+            router.replace('/admin/dashboard');
+        }
+
         if (result.error) {
             setTimeout(function () {
                 notificationCtx.showNotification({
@@ -34,16 +41,7 @@ export default function AdminLoginForm() {
                     status: 'error',
                 });
             }, 1000);
-        } else {
-            setTimeout(function () {
-                event.target.reset();
-                notificationCtx.showNotification({
-                    message: 'Success Login!',
-                    status: 'success',
-                });
-            }, 1000);
-            window.location.href= '/admin/dashboard';
-         }
+        }
     }
 
     return (

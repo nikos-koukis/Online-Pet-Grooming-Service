@@ -1,13 +1,13 @@
 
-import { useSession, signOut } from "next-auth/react"
+import { useSession, signOut, getSession } from "next-auth/react"
 
-export default function AdminDashboard() {
+export default function AdminDashboard(props) {
 
     function logoutHandler() {
         signOut();
     }
 
-    const { data: session, status } = useSession()
+    const { data: session, status } = useSession();
 
     if (status === "authenticated") {
         return (
@@ -17,8 +17,20 @@ export default function AdminDashboard() {
             </div>
         )
     }
-    if (status === "unauthenticated") {
-        window.location.href = '/admin';
-    }
+}
 
-} 
+export async function getServerSideProps(context) {
+    const session = await getSession({ req: context.req })
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/admin',
+                permant: false
+            }
+        };
+    }
+    return {
+        props: { session }
+    }
+}
