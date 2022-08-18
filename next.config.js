@@ -3,9 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    DB_USER : 'nikoskoukis',
-    DB_PASS : 'ef7ww0nikokouk2',
-    DB_CLUSTER : 'cluster0',
+    DB_USER : '',
+    DB_PASS : '',
+    DB_CLUSTER : '',
   },
 }
 
