@@ -37,6 +37,10 @@ git clone https://github.com/nikos-koukis/Online-Pet-Grooming-Service.git
 npm install
 ```
 
+### Step 3: Database Dependencies
+
+Copy the ```sh .env ``` and rename it ``sh .env.local `` and use your own credentials
+
 #### And you are ready to go
 
 ```sh
