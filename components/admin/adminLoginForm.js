@@ -36,11 +36,13 @@ export default function AdminLoginForm() {
             }, 1000);
         } else {
             setTimeout(function () {
+                event.target.reset();
                 notificationCtx.showNotification({
                     message: 'Success Login!',
                     status: 'success',
                 });
             }, 1000);
+            window.location.href= '/admin/dashboard';
          }
     }
 
