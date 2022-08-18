@@ -42,9 +42,10 @@ export default function AdminRegisterForm() {
             })
             .then((data) => {
                 notificationCtx.showNotification({
-                    message: 'Successfully registered for newsletter!',
+                    message: 'Successfully registered for admin!',
                     status: 'success',
                 });
+                event.target.reset();
             })
             .catch((error) => {
                 notificationCtx.showNotification({

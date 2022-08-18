@@ -9,7 +9,7 @@ async function handler(req, res) {
 
     const data = req.body;
 
-    const { fullname, email, password } = data;
+    const { fullname, email, password, verify=false } = data;
 
     if (!fullname || !email || !email.includes('@') || !password || password.trim().length < 7) { // API Validation 
         res.status(422).json({
@@ -37,6 +37,7 @@ async function handler(req, res) {
         fullname: fullname,
         email: email,
         password: hashedPassword,
+        verify: verify
     });
 
     res.status(201).json({ message: 'Created user!' });
