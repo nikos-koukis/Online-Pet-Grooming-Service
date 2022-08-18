@@ -18,41 +18,49 @@ export default function AdminRegisterForm() {
         const enteredFullName = fullNameInputRef.current.value;
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
+        const enteredConfPassword = confirmPasswordInputRef.current.value;
 
-        notificationCtx.showNotification({
-            message: 'Registering for admin in process.',
-            status: 'pending',
-        });
-
-        fetch('/api/auth/admin/signup', {
-            method: 'POST',
-            body: JSON.stringify({ fullname: enteredFullName, email: enteredEmail, password: enteredPassword }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-
-                return response.json().then((data) => {
-                    throw new Error(data.message || 'Something went wrong!');
-                });
-            })
-            .then((data) => {
-                notificationCtx.showNotification({
-                    message: 'Successfully registered for admin!',
-                    status: 'success',
-                });
-                event.target.reset();
-            })
-            .catch((error) => {
-                notificationCtx.showNotification({
-                    message: error.message || 'Something went wrong!',
-                    status: 'error',
-                });
+        if (enteredPassword == enteredConfPassword) {
+            notificationCtx.showNotification({
+                message: 'Registering for admin in process.',
+                status: 'pending',
             });
+
+            fetch('/api/auth/admin/signup', {
+                method: 'POST',
+                body: JSON.stringify({ fullname: enteredFullName, email: enteredEmail, password: enteredPassword }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+
+                    return response.json().then((data) => {
+                        throw new Error(data.message || 'Something went wrong!');
+                    });
+                })
+                .then((data) => {
+                    notificationCtx.showNotification({
+                        message: 'Successfully registered for admin!',
+                        status: 'success',
+                    });
+                    event.target.reset();
+                })
+                .catch((error) => {
+                    notificationCtx.showNotification({
+                        message: error.message || 'Something went wrong!',
+                        status: 'error',
+                    });
+                });
+        } else {
+            notificationCtx.showNotification({
+                message: 'Passwords dont match.',
+                status: 'error',
+            });
+        }
     }
 
     return (
