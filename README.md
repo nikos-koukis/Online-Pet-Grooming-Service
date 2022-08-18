@@ -16,4 +16,34 @@
 | FrontEnd      | <img src="./public/assets/mdImages/nextjs.png" width="300" height="150">       | <img src="./public/assets/mdImages/tailwind.jpg" width="300" height="150">       | <img src="./public/assets/mdImages/mongodb.jpg" width="300" height="150">       |
 |    | <p align="center">NextJS</p> | <p align="center">Tailwind CSS</p> | <p align="center">MongoDB</p> |
 ---
+
+## :rocket: Quick start
+
+Start developing locally.
+
+### Step 1: Clone the repo
+
+Clone the repo locally
+
+```sh
+git clone https://github.com/nikos-koukis/Online-Pet-Grooming-Service.git
+```
+
+### Step 2: Install Dependencies
+
+```sh
+npm install
+```
+
+#### And you are ready to go
+
+```sh
+npm run dev
+```
+
+```sh
+http://localhost:3000/admin
+```
+
+---
 Made with :heart: and JavaScript 
