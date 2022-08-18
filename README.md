@@ -39,7 +39,8 @@ npm install
 
 ### Step 3: Database Dependencies
 
-Copy the ```.env ``` and rename it ``.env.local `` and use your own credentials
+Copy the ```.env``` and rename it ```.env.local``` and use your own credentials
+The database connect locate in: ```lib/db.js```
 
 #### And you are ready to go
 
