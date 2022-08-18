@@ -39,7 +39,7 @@ npm install
 
 ### Step 3: Database Dependencies
 
-Copy the ```sh .env ``` and rename it ``sh .env.local `` and use your own credentials
+Copy the ```.env ``` and rename it ``.env.local `` and use your own credentials
 
 #### And you are ready to go
 
