@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react"
 import AdminLayout from "../../components/layout/adminLayout";
 import AdminLoginForm from "../../components/admin/adminLoginForm.js";
 import AdminRegisterForm from "../../components/admin/adminRegisterForm.js";
-import { AdminRegisterNotificationContextProvider } from "../../contextStore/adminRegisterNotifCtx";
+import { GeneralNotifCtxProvider } from "../../contextStore/generalNotifCtx";
 import { useState } from "react";
 
 export default function AdminIntroPage() {
@@ -18,7 +18,7 @@ export default function AdminIntroPage() {
 
     if (adminLoginForm) {
         return (
-            <AdminRegisterNotificationContextProvider>
+            <GeneralNotifCtxProvider>
                 <AdminLayout>
                     <AdminLoginForm />
                     <div className='flex items-center justify-center'>
@@ -29,11 +29,11 @@ export default function AdminIntroPage() {
                         </label>
                     </div>
                 </AdminLayout>
-            </AdminRegisterNotificationContextProvider>
+            </GeneralNotifCtxProvider>
         );
     }
     return (
-        <AdminRegisterNotificationContextProvider>
+        <GeneralNotifCtxProvider>
             <AdminLayout>
                 <AdminRegisterForm />
                 <div className='flex items-center justify-center'>
@@ -44,7 +44,7 @@ export default function AdminIntroPage() {
                     </label>
                 </div>
             </AdminLayout>
-        </AdminRegisterNotificationContextProvider>
+        </GeneralNotifCtxProvider>
     )
 }
 

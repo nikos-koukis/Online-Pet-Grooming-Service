@@ -1,12 +1,12 @@
 import { createContext, useState, useEffect } from 'react';
 
-const AdminRegisterNotificationContext = createContext({
+const GeneralNotifCtx = createContext({
   notification: null, // { message, status }
   showNotification: function (notificationData) { },
   hideNotification: function () { },
 });
 
-export function AdminRegisterNotificationContextProvider(props) {
+export function GeneralNotifCtxProvider(props) {
   const [activeNotification, setActiveNotification] = useState();
 
   useEffect(() => {
@@ -40,10 +40,10 @@ export function AdminRegisterNotificationContextProvider(props) {
   };
 
   return (
-    <AdminRegisterNotificationContext.Provider value={context}>
+    <GeneralNotifCtx.Provider value={context}>
       {props.children}
-    </AdminRegisterNotificationContext.Provider>
+    </GeneralNotifCtx.Provider>
   );
 }
 
-export default AdminRegisterNotificationContext;
+export default GeneralNotifCtx;

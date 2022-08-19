@@ -1,7 +1,7 @@
 import { PencilAltIcon } from '@heroicons/react/solid'
 import { useRef, useContext } from 'react';
-import NotificationContext from '../../contextStore/adminRegisterNotifCtx';
-import AdminRegisterNotif from '../ui/adminContext/adminRegiNotific';
+import GeneralNotifCtx from '../../contextStore/generalNotifCtx';
+import GeneralCtxUI from '../ui/ctxStyle/generalCtxUI';
 
 export default function AdminRegisterForm() {
 
@@ -10,7 +10,7 @@ export default function AdminRegisterForm() {
     const passwordInputRef = useRef();
     const confirmPasswordInputRef = useRef();
 
-    const notificationCtx = useContext(NotificationContext);
+    const notificationCtx = useContext(GeneralNotifCtx);
     const activeNotification = notificationCtx.notification;
 
     async function adminRegisterSubmitHandler(event) {
@@ -136,7 +136,7 @@ export default function AdminRegisterForm() {
                 </form>
             </div>
             {activeNotification && (
-                <AdminRegisterNotif
+                <GeneralCtxUI
                     message={activeNotification.message}
                     status={activeNotification.status}
                 />

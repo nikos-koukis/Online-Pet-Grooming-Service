@@ -1,16 +1,16 @@
-import { LoginIcon } from '@heroicons/react/solid'
-import { signIn } from 'next-auth/react'
+import { LoginIcon } from '@heroicons/react/solid';
+import { signIn } from 'next-auth/react';
 import { useRef, useContext } from 'react';
-import { useRouter } from 'next/router'
-import AdminRegisterNotificationContext from '../../contextStore/adminRegisterNotifCtx';
-import AdminRegisterNotif from '../ui/adminContext/adminRegiNotific';
+import { useRouter } from 'next/router';
+import GeneralNotifCtx from '../../contextStore/generalNotifCtx';
+import GeneralCtxUI from '../ui/ctxStyle/generalCtxUI';
 
 export default function AdminLoginForm() {
 
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
 
-    const notificationCtx = useContext(AdminRegisterNotificationContext);
+    const notificationCtx = useContext(GeneralNotifCtx);
     const activeNotification = notificationCtx.notification;
 
     const router = useRouter();
@@ -147,7 +147,7 @@ export default function AdminLoginForm() {
                 </form>
             </div>
             {activeNotification && (
-                <AdminRegisterNotif
+                <GeneralCtxUI
                     message={activeNotification.message}
                     status={activeNotification.status}
                 />

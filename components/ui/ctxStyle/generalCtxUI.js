@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import AdminRegisterNotificationContext from '../../../contextStore/adminRegisterNotifCtx';
+import GeneralNotifCtx from '../../../contextStore/generalNotifCtx';
 
-function AdminRegisterNotif(props) {
+export default function GeneralCtxUI(props) {
 
-  useContext(AdminRegisterNotificationContext);
+  useContext(GeneralNotifCtx);
   const { message, status } = props;
 
   if (status === 'success') {
@@ -34,5 +34,3 @@ function AdminRegisterNotif(props) {
   }
 
 }
-
-export default AdminRegisterNotif;
