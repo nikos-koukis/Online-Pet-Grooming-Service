@@ -19,29 +19,63 @@ export default function AdminLoginForm() {
         event.preventDefault();
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
-        const result = await signIn('credentials', {
-            redirect: false,
-            email: enteredEmail,
-            password: enteredPassword,
-        });
 
         notificationCtx.showNotification({
             message: 'Login for admin in process...',
             status: 'pending',
         });
 
-        if (!result.error) {
-            router.replace('/admin/dashboard');
-        }
+        await fetch('/api/auth/checkUserVerify', {
+            method: 'POST',
+            body: JSON.stringify({ email: enteredEmail, password: enteredPassword }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
 
-        if (result.error) {
-            setTimeout(function () {
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+
+            return response.json().then((data) => {
+                throw new Error(data.message || 'Something went wrong!');
+            });
+        })
+        .then((data) => {
+            const result = signIn('credentials', {
+                redirect: false,
+                email: enteredEmail,
+                password: enteredPassword,
+            })
+            .then((result) => {
+                if (result.error) {
+                    setTimeout(function () {
+                        notificationCtx.showNotification({
+                            message: 'Invalid Credentials!',
+                            status: 'error',
+                        });
+                    }, 1000);
+                }
+                if (!result.error) {
+                    event.target.reset();
+                    router.replace('/admin/dashboard');
+                }
+            })
+            .catch((error) => {
                 notificationCtx.showNotification({
-                    message: 'Invalid Credentials!',
+                    message: error.message || 'Something went wrong!',
                     status: 'error',
                 });
-            }, 1000);
-        }
+            });
+        })
+        .catch((error) => {
+            notificationCtx.showNotification({
+                message: error.message || 'Something went wrong!',
+                status: 'error',
+            });
+            
+        });
     }
 
     return (
