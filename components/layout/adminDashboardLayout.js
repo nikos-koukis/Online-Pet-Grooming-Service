@@ -29,7 +29,7 @@ export default function AdminDashboardLayout() {
     }
 
     return (
-        <div className={`bg-blue-400 h-screen p-5 pt-8 ${open ? "w-72" : "w-20"} duration-300`}>
+        <div className={`bg-blue-400 h-screen p-5 pt-8 ${open ? "w-72" : "w-20"} duration-300 relative`}>
             <BsArrowLeftShort className={`bg-white text-2xl rounded-full absolute -right-3 top-9 border border-blue-400 cursor-pointer duration-300 
             ${!open && "rotate-180 duration-300"}`} onClick={NavBarHandler} />
             <div className='inline-flex pl-2 items-center'>
