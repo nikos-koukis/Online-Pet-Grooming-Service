@@ -52,5 +52,14 @@ npm run dev
 http://localhost:3000/admin
 ```
 
+#### Test Admin Account
+```sh
+http://localhost:3000/admin
+```
+```sh
+Username: test@gmail.com
+Password: testpass
+```
+
 ---
 Made with :heart: and JavaScript 
