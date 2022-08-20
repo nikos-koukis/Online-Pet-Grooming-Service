@@ -14,8 +14,8 @@ export default function AdminDashboard(props) {
         return (
             <div className="flex">
                 <AdminDashboardLayout />
-                <div className="p-7">
-                    <h1 className="text-2xl font0semibold">Home Page</h1>
+                <div className="p-7 bg-gray-100 w-screen">
+                    <h1 className="text-2xl font-semibold">Home Page</h1>
                 </div>
             </div>
         )
