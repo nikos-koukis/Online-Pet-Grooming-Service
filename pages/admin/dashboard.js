@@ -1,5 +1,6 @@
 
 import { useSession, signOut, getSession } from "next-auth/react"
+import AdminDashboardLayout from "../../components/layout/adminDashboardLayout";
 
 export default function AdminDashboard(props) {
 
@@ -11,9 +12,11 @@ export default function AdminDashboard(props) {
 
     if (status === "authenticated") {
         return (
-            <div>
-                <p>Signed in as {session.user.email}</p>
-                <button onClick={logoutHandler}>Logout</button>
+            <div className="flex">
+                <AdminDashboardLayout />
+                <div className="p-7">
+                    <h1 className="text-2xl font0semibold">Home Page</h1>
+                </div>
             </div>
         )
     }
