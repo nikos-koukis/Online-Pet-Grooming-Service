@@ -1,6 +1,8 @@
-
 import { useSession, getSession } from "next-auth/react"
-import AdminDashboardLayout from "../../components/layout/adminDashboardLayout";
+import AdminNavBarLayout from "../../components/layout/adminNavBarLayout";
+import AdminNavigationHeaderLayout from "../../components/layout/adminNavigationHeaderLayout";
+import { Fragment } from "react";
+
 
 export default function AdminProfile(props) {
 
@@ -9,12 +11,10 @@ export default function AdminProfile(props) {
 
     if (status === "authenticated") {
         return (
-            <div className="flex">
-                <AdminDashboardLayout />
-                <div className="p-7 bg-gray-100 w-screen">
-                    <h1 className="text-2xl font-semibold">Profile Page</h1>
-                </div>
-            </div>
+            <Fragment>
+                <AdminNavigationHeaderLayout />
+                <AdminNavBarLayout />
+            </Fragment>
         )
     }
 }
